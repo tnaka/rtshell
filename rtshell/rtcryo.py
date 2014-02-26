@@ -113,9 +113,13 @@ def find_unique_connectors(tree, components):
                         instance_name=dest_comp.instance_name, port_name=name)
                 dest_port.properties['COMPONENT_PATH_ID'] = \
                         dest_comp.full_path_str[1:]
+                if 'dataport.data_type' in conn.properties :
+                    data_type=conn.properties['dataport.data_type']
+                else :
+                    data_type=dest_port.port_name
                 rts_conn = rtsprofile.port_connectors.DataPortConnector(
                         connector_id=conn.id, name=conn.name,
-                        data_type=conn.properties['dataport.data_type'],
+                        data_type=data_type,
                         interface_type=conn.properties['dataport.interface_type'],
                         data_flow_type=conn.properties['dataport.dataflow_type'],
                         subscription_type=conn.properties['dataport.subscription_type'],
